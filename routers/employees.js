@@ -1,7 +1,7 @@
 const express = require('express');
-const pool = require('../database');
-const cors = require('cors')
 const router = express.Router();
+const cors = require('cors')
+const pool = require('../database');
 const crypto = require('crypto');
 
 function toSha256 (input) {
