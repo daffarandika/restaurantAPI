@@ -17,6 +17,15 @@ var upload = multer({ storage: storage })
 router.use(express.static('public'))
 router.use(cors())
 router.use(express.json())
+router.get('/:id', async (req, res) => {
+    try {
+        const query = `select * from menu where menuid = ${req.params.id}`;
+        const menus = await pool.query(query);
+        res.json(menus.rows)
+    } catch (error) {
+        res.send(error.message)
+    }
+})
 
 router.get('/', async (req, res) => {
     try {
@@ -53,7 +62,7 @@ router.put('/', upload.single('photo'), async (req, res) => {
     res.send(updatedMenu)
 })
 
-router.post('/', async (req, res) => {
+router.delete('/', async (req, res) => {
     const {menuid} = req.body
     const query = `delete from menu where menuid = '${menuid}'`;
     const deletedMenu = await pool.query(query);
