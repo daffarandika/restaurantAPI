@@ -17,6 +17,11 @@ var upload = multer({ storage: storage })
 router.use(express.static('public'))
 router.use(cors())
 router.use(express.json())
+
+router.get('/upload', (req, res) => {
+    res.render('new-menu')
+})
+
 router.get('/:id', async (req, res) => {
     try {
         const query = `select * from menu where menuid = ${req.params.id}`;
@@ -37,9 +42,6 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/upload', (req, res) => {
-    res.render('new-menu')
-})
 
 router.get('/update', (req, res) => {
     res.render('update-menu')
